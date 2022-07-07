@@ -1,0 +1,6 @@
+<h1>We are online!</h1>
+<form method="POST">
+    {% csrf_token %}
+    {{ reg_form }}
+    <input type="submit" value="Submit">
+</form>
