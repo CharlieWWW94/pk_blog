@@ -38,10 +38,9 @@ class KeyEncryptor:
     
     def gen_pk_keys(self):
         (self.pub_key, priv_key) = rsa.newkeys(512)
-        return [priv_key, self.pub_key]
+        return priv_key
     
     def encrypt_key(self, key):
-        #encoded_key = key.encode('utf8')
         crypto_key = rsa.encrypt(key, self.pub_key)
         return crypto_key
     
@@ -56,22 +55,4 @@ class KeyEncryptor:
         return decoded_key
 
 #tester code
-
-blog = 'Welcome to the jungle'
-blog_encrypt = BlogEncryptor()
-encrypted_blog = blog_encrypt.encrypt(blog)
-print(f'encrypted_blog: {encrypted_blog}')
-blog_key = blog_encrypt.get_key()
-
-pk_encryption = KeyEncryptor()
-pk_keys = pk_encryption.gen_pk_keys()
-encrypted_aes_key = pk_encryption.encrypt_key(blog_key)
-print(f'encrypted_key: {encrypted_aes_key}')
-
-decrypted_key = pk_encryption.decrypt_key(encrypted_aes_key, pk_keys[0])
-print(f'decrypted key:{decrypted_key}')
-
-print(BlogEncryptor(decrypted_key).decrypt(encrypted_blog))
-
-
 

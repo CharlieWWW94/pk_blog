@@ -4,5 +4,7 @@ from .forms import NewBlogForm
 
 
 urlpatterns = [
-    path('home/', views.nav)
+    path('new_blog/', views.create_blog),
+    path('all_blogs/', views.view_all),
+    path('blog/<str:id>', views.view_blog)
 ]

@@ -1,0 +1,14 @@
+<h1>Here is your blog:</h1>
+{% for blogs in blog %}
+<br>
+<h2>{{ blogs.title }}</h2>
+<br>
+{{ blogs.time_created }}
+<br>
+{{ blogs.strapline }}
+<br>
+{{ blogs.blog_content }}
+<br>
+{{ blogs.attributed_name }}
+<br>
+{% endfor %}
