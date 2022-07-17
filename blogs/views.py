@@ -6,6 +6,9 @@ from enkrypt import BlogEncryptor, KeyEncryptor
 from .models import ProtectedBlog
 # Create your views here.
 
+def home(request):
+    #displays homepage
+    return render(request, 'blogs/home.html')
 
 
 

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=PT+Sans:wght@400;700&display=swap');
 
 *{
     padding: 0;
@@ -7,9 +7,10 @@
 }
 
 header {
-    background-color: lightslategray;
+    background-color: rgb(63, 77, 90);
     font-family: 'Inter';
     font-weight: bold;
+    z-index: 1;
 }
 
 li {
@@ -20,6 +21,8 @@ a {
     color: white;
     text-decoration: none;
 }
+
+/* Navigation bar */
 
 .navbar {
     min-height: 70px;
@@ -33,11 +36,13 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-right: 10%;
     gap: 60px;
 }
 
 .logo {
     margin-top: 10px;
+    margin-left: 160px;
     max-width: 7rem;
 }
 
@@ -64,7 +69,74 @@ a {
     background-color: white;
 }
 
-@media(max-width:768px) {
+/* Hero section */
+
+.hero {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: space-around;
+    z-index: -2;
+}
+
+.hero-image {
+    flex: 1;
+    margin-top: -11rem;
+    z-index: -1;
+}
+
+.cctv {
+    max-width: 90%;
+    min-width: 4rem;
+    text-align: center;
+}
+
+.headline {
+    flex: 1;
+    justify-content: center;
+    margin: 10% 10% 10% 10%;
+    font-family: 'PT Sans', sans-serif;
+    font-size: xx-large;
+    color: rgb(17, 17, 17)
+}
+
+.accent {
+    color: rgb(216, 0, 0);
+    padding-top: 1rem;
+}
+
+/* Info section */
+
+body {
+    background-color: rgb(232, 241, 243);
+}
+
+.info-block {
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color: azure;
+    padding-bottom: 80%;
+    font-family: 'PT Sans', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.info {
+    flex:1;
+    justify-content: center;
+    text-align: center;
+    padding: 3% 5%;
+}
+
+.icon {
+    max-width: 10rem;
+    padding-bottom: 5%;
+}
+
+/* Changes for mobile compatibility */
+
+@media(max-width:1020px) {
     .hamburger{
         display: block;
     }
@@ -87,7 +159,7 @@ a {
         top: 70px;
         gap: 0;
         flex-direction: column;
-        background-color: lightslategray;
+        background-color: rgb(63, 77, 90);
         width: 100%;
         text-align: center;
         transition: 0.3s;
@@ -99,6 +171,31 @@ a {
 
     .nav-menu.active {
         left: 0;
+    }
+
+    .logo {
+        margin-left: 15px;
+    }
+
+    .hero {
+        flex-direction: column;
+    }
+
+    .hero-image {
+        max-width: 40%;
+        margin-top: -4rem;
+        order: 1;
+    }
+
+    .cctv {
+        max-width: 100%;
+        
+    }
+
+    .headline {
+        order: 2;
+        font-size: xx-large;
+        margin: auto auto auto auto auto;
     }
 }
 

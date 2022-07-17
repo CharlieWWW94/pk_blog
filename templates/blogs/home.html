@@ -1,0 +1,27 @@
+{% extends '../base.html' %}
+{% block content %}
+{% load static %}
+<div class = "hero">
+    <div class = 'headline'>
+        <h1>Share your thoughts...</h1>
+        <h3 class="accent">With those you trust.</h3>
+    </div>
+    <div class = "hero-image">
+        <img class = "cctv" src="{% static 'images/camera.png'%}">
+    </div>
+</div>
+<div class="info-block">
+    <div class="info">
+        <img class="icon" src="{% static 'images/shield.png' %}">
+        <p>With PK_BLOG you can encrypt your blog posts so that you are in control of who sees your content, or doesn't.</p>
+    </div>
+    <div class="info">
+        <img class="icon" src="{% static 'images/eye.png' %}">
+        <p>We use a mix of both AES and RSA encryption to ensure your data is secure. Not even we can read your posts.</p>
+    </div>
+    <div class="info">
+        <img class="icon" src="{% static 'images/card.png' %}">
+        <p>Encryption also provides your readers with peace of mind. They know for certain that you are the one who created it.</p> 
+    </div>    
+</div>
+{% endblock %}
