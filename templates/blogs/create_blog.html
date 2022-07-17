@@ -1,6 +1,9 @@
-<h1>NAV</h1>
+{% extends '../base.html' %}
+{% block content %}
+<h1>Create Blog</h1>
 <form method="post">
     {% csrf_token %}
     {{ new_form.as_p }}
     <button type="submit">Create Blog</button>
 </form>
+{% endblock %}

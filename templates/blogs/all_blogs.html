@@ -1,5 +1,8 @@
+{% extends '../base.html' %}
+{% block content %}
 <h1>All Blogs</h1>
 {% for blog in results %}
 {{blog.title}}
 {{blog.id}}
 {% endfor %}
+{%  endblock %}
