@@ -55,6 +55,7 @@ def create_blog(request):
             new_blog.private_key = encrypted_key
         
         #encrypted or unencrypted blog object saves to db:
+        new_blog.is_encrypted = False
         new_blog.save()
         return render(request, 'success.html', {'user': 'We did it!'})
     

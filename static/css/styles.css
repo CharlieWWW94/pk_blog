@@ -69,6 +69,20 @@ a {
     background-color: white;
 }
 
+btn {
+    padding: 1rem;
+    border-radius: 12px;
+}
+
+.reg-button {
+    background-color: rgb(46, 158, 2);
+}
+
+.login-button {
+    background-color: rgb(255, 177, 9);
+    padding: 1rem 1.4rem;
+}
+
 /* Hero section */
 
 .hero {
@@ -130,10 +144,64 @@ body {
 }
 
 .icon {
+    margin: 5%;
     max-width: 10rem;
-    padding-bottom: 5%;
+    padding: 5%;
+    background-color: rgb(232, 241, 243);
+    border-radius: 25%;
 }
 
+/*form styling new_blog */
+
+.form-container {
+    display:flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    border: 1px;
+    border-style: solid;
+    padding: 1rem 0%;
+    width: 100%;
+    text-align: center;
+
+}
+
+form {
+    flex: 1;
+    align-items: center;
+    font-family: 'PT Sans', sans-serif;
+    width: 50%;
+    padding: 1rem;
+    border-radius: 12px;
+    background-color: rgb(80, 71, 71);
+    
+}
+
+.form-title {
+    font-size: 3rem;
+    color: rgb(240, 240, 240);
+    align-self: center;
+}
+
+.form-entry {
+    padding: 0.5rem 0;
+    text-align: left;
+}
+
+.form-content {
+    width: 100%;
+    font-family: 'PT Sans', sans-serif;
+    font-size: 18px;
+    border-radius: 8px;
+    border: none;
+    background-color: rgb(240, 240, 240);
+}
+
+label {
+    color: rgb(240, 240, 240);
+    font-size:  1rem;
+    font-weight: 400;
+}
 /* Changes for mobile compatibility */
 
 @media(max-width:1020px) {

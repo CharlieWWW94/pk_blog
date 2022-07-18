@@ -1,9 +1,51 @@
 {% extends '../base.html' %}
 {% block content %}
-<h1>Create Blog</h1>
-<form method="post">
+<div class="form-container">
+
+<!-- <form method="post">
+    <h1>Create Post:</h1>
     {% csrf_token %}
-    {{ new_form.as_p }}
+    {{ new_form.as_table }}
     <button type="submit">Create Blog</button>
-</form>
+</form> -->
+
+    <form method="post">
+        {% csrf_token %}
+        <h1 class="form-title">Create post</h1>
+        {{ new_form.non_field_errors }}
+        <ul>
+            <li class="form-entry">
+                {{new_form.title.errors}}
+                <label for="{{ new_form.title.id_for_label }}">Blog title:</label>
+                <br>
+                {{new_form.title}}
+            </li>
+            <li class="form-entry">
+                {{new_form.strapline.errors}}
+                <label for="{{ new_form.strapline.id_for_label }}">Strapline:</label>
+                <br>
+                {{new_form.strapline}}
+            </li>
+            <li class="form-entry">
+                {{new_form.is_encrypted.errors}}
+                <label for="{{ new_form.is_encrypted.id_for_label }}">Encryption:</label>
+                {{new_form.is_encrypted}}
+            </li>
+            <li class="form-entry">
+                {{new_form.blog_content.errors}}
+                <label for="{{ new_form.blog_content.id_for_label }}">Blog content:</label>
+                <br>
+                {{new_form.blog_content}}
+            </li>
+            <li class="form-entry">
+                {{new_form.author.errors}}
+                <label for="{{ new_form.author.id_for_label }}">Who wrote this?</label>
+                <br>
+                {{new_form.author}}
+            </li>
+            <br>
+        </ul>
+        <button type="submit">Create Post</button>
+    </form>
+</div>
 {% endblock %}
