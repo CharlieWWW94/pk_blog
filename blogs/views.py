@@ -57,7 +57,13 @@ def create_blog(request):
         #encrypted or unencrypted blog object saves to db:
         new_blog.is_encrypted = False
         new_blog.save()
-        return render(request, 'success.html', {'user': 'We did it!'})
+        print(str(access_key))
+        print(type(access_key))
+        decrypted_key = key_encryption.decrypt_key(encrypted_key, access_key)
+        print(f"Here is the decrypted key, as evidence:{decrypted_key}")
+        blog_decryptor = BlogEncryptor(decrypted_key)
+        print(f"Here is the decrypted blog as evidence: {blog_decryptor.decrypt(new_blog.blog_content)}")
+        return render(request, 'blogs/blog_created.html', {'key': access_key, 'url_id': new_blog.id})
     
     new_form = NewBlogForm()
     return render(request, 'blogs/create_blog.html', {'new_form': new_form})

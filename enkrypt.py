@@ -44,15 +44,14 @@ class KeyEncryptor:
         crypto_key = rsa.encrypt(key, self.pub_key)
         return crypto_key
     
-    def decrypt_key(self, blog, private_key):
+    def decrypt_key(self, encrypted_key, private_key):
         
         try:
-            decrypted_key = rsa.decrypt(blog, private_key)
+            decrypted_key = rsa.decrypt(encrypted_key, private_key)
         except:
             return 'Key decryption failed. Perhaps you are using the wrong RSA key?'
         
         decoded_key = decrypted_key.decode('utf8')
         return decoded_key
 
-#tester code
 
