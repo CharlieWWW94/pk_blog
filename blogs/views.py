@@ -1,9 +1,10 @@
 from distutils.log import error
 from django.shortcuts import render
 from .models import ProtectedBlog
-from .forms import NewBlogForm
+from .forms import NewBlogForm, DecryptForm
 from enkrypt import BlogEncryptor, KeyEncryptor
 from .models import ProtectedBlog
+from pickle import dumps, loads
 # Create your views here.
 
 def home(request):
@@ -19,10 +20,25 @@ def view_all(request):
 
 
 def view_blog(request, id):
-    #Presents user with a specific, encrypted blog post
+    #Presents user with a specific, encrypted blog post, decrypts if key offered.
+    if request.method == 'POST':
+        user_key = request.POST['user_key']
+        user_key_processed = loads(eval(user_key))
+        blog = ProtectedBlog.objects.filter(id=int(request.POST['blog_id']))[0]
+        
+        key_decryption = KeyEncryptor()
+        decoded_key = key_decryption.decrypt_key(eval(blog.private_key), user_key_processed)
+
+        blog_decryption = BlogEncryptor(given_key=decoded_key)
+        blog_content = blog_decryption.decrypt(eval(blog.blog_content))
+        print(blog_content)
+        
+
+
+    form = DecryptForm
     blog = ProtectedBlog.objects.filter(id=id)
-    print(blog)
-    return render(request, 'blogs/blog.html', {'blog': blog})
+    return render(request, 'blogs/blog.html', {'blog': blog, 'form': form})
+
 
 
 def create_blog(request):
@@ -51,19 +67,19 @@ def create_blog(request):
             new_blog.blog_content = blog_encryption.encrypt(content)
             key_encryption = KeyEncryptor()
             access_key = key_encryption.gen_pk_keys()
+            #Access key as bytes - needed later for decryption.
+            bytes_key = str(dumps(access_key))
             encrypted_key = key_encryption.encrypt_key(blog_encryption.get_key())
             new_blog.private_key = encrypted_key
         
         #encrypted or unencrypted blog object saves to db:
         new_blog.is_encrypted = False
         new_blog.save()
-        print(str(access_key))
-        print(type(access_key))
-        decrypted_key = key_encryption.decrypt_key(encrypted_key, access_key)
-        print(f"Here is the decrypted key, as evidence:{decrypted_key}")
-        blog_decryptor = BlogEncryptor(decrypted_key)
-        print(f"Here is the decrypted blog as evidence: {blog_decryptor.decrypt(new_blog.blog_content)}")
-        return render(request, 'blogs/blog_created.html', {'key': access_key, 'url_id': new_blog.id})
+
+        
+        
+        return render(request, 'blogs/blog_created.html', {'key': bytes_key, 'url_id': new_blog.id})
+        
     
     new_form = NewBlogForm()
     return render(request, 'blogs/create_blog.html', {'new_form': new_form})

@@ -55,3 +55,15 @@ class KeyEncryptor:
         return decoded_key
 
 
+'''
+  bytes_key = str(dumps(access_key))
+        print(bytes_key)
+        print(type(bytes_key))
+        new_access = loads(eval(bytes_key))
+        #print(type(access_key))
+        decrypted_key = key_encryption.decrypt_key(encrypted_key, new_access)
+        print(f"Here is the decrypted key, as evidence:{decrypted_key}")
+        blog_decryptor = BlogEncryptor(decrypted_key)
+        print(f"Here is the decrypted blog as evidence: {blog_decryptor.decrypt(new_blog.blog_content)}")
+
+'''

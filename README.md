@@ -17,10 +17,12 @@ Currently working:
 - Blog creation and encryption
 - Log in functionality
 - Responsive Navbar
-
-To do list:
 - Url creation for new blog posts
 - Presenting user with private key after creating blog
+- Users can now decrypt blogs they wish to read 
+
+To do list:
+- Check if user is logged in to allow for blog creation.
 - User dashboard
 - Page for browsing unencrypted, public posts
 - Log out functionality

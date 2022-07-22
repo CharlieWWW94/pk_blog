@@ -14,7 +14,12 @@
 {{ blogs.attributed_name }}
 <br>
 {% endfor %}
-<form method="post"></form>
+<form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">Decrypt</button>
+</form>
+
 {% endblock %}
 
 
