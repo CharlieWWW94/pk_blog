@@ -2,14 +2,18 @@ from django.shortcuts import render
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import authenticate, login as new_login
 
+from blogs.models import ProtectedBlog
+
 
 
 def register(request):
+    
     if request.method == "POST":
         reg_form = UserCreationForm(request.POST)
         if reg_form.is_valid():
             reg_form.save()
             return render(request, 'success.html')
+    
     reg_form = UserCreationForm()
     return render(request, 'registration/signup.html', {'reg_form': reg_form})
 
@@ -28,3 +32,9 @@ def login(request):
 
     login_form = AuthenticationForm()
     return render(request, 'registration/login.html', {'login_form': login_form})
+
+def dashboard(request, username):
+    if request.user.is_authenticated:
+        user_blogs = ProtectedBlog.objects.filter(author = request.user.id)
+        print(user_blogs)
+        return render(request, 'dashboard.html')

@@ -76,8 +76,6 @@ def create_blog(request):
         new_blog.is_encrypted = False
         new_blog.save()
 
-        
-        
         return render(request, 'blogs/blog_created.html', {'key': bytes_key, 'url_id': new_blog.id})
         
     

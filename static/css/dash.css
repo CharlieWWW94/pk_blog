@@ -1,0 +1,215 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;600&display=swap');
+* {
+    padding:0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Sora';
+}
+
+/* Styling for dashboard */
+.dash {
+    margin: 2% 1%;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: 0.5fr 1fr 1fr 1fr;
+    grid-template-areas:
+    "banner profile-strap profile-strap"
+    "none blogs user-actions"
+    
+    
+}
+
+.profile-strap {
+    width: 6000px;
+    margin-left: -60%;
+    margin-right: -100%;
+    margin-top: -2%;
+    height: 300px;
+    display: flex;
+    position: absolute;
+    background-color: rgb(20, 19, 19);
+    z-index: -1;
+    grid-area: profile-strap;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.banner {
+    text-align: center;
+    justify-content: center;
+    background-color: white;
+    margin-right: 5%;
+    margin-top: 10%;
+    align-items: center;
+    border-radius: 20px;
+    width:430px;
+    min-width: 430px;
+    -webkit-box-shadow: 0px 3px 8px 0px rgba(32, 32, 32, 0.59); 
+    box-shadow: 0px 120px 8px 0px rgba(17, 17, 17, 0.59);
+    grid-area: banner;
+    
+    
+}
+
+.overlay {
+    grid-row: 1;
+    grid-column: 3;
+    color: rgb(82, 82, 82);
+    text-align: center;
+
+}
+
+.profile-picture {
+    display: flex;
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    background: rgb(3,0,36);
+    background: linear-gradient(90deg, rgba(3,0,36,1) 0%, rgba(9,59,121,1) 26%, rgba(255,0,217,1) 100%);
+    align-self: center;
+    margin-left: 9rem;
+    margin-top: -4rem;
+    margin-bottom: 2rem;
+    border: solid;
+    border-width: 10px;
+    border-color: white;
+}
+
+.banner-contents {
+    background-color: rgb(240, 240, 240);
+    padding-top: 6%;
+    margin-bottom: 0;
+    height: 100%;
+    border-radius: 0 0 25px 25px;
+}
+
+.card-text {
+    padding: 2%;
+}
+
+.blogs {
+    border-radius: 20px;
+    margin-top: -8%;
+    width: 100%;
+    grid-area: blogs;
+
+}
+
+.blog-title {
+    text-align: center;
+    color: rgb(26, 26, 26);
+    margin-bottom: 2%;
+}
+
+.blog-header {
+    background-color: aliceblue;
+    padding: 2% 0 0 0;
+    margin: -1%;
+    
+}
+
+.blog-count {
+    background-color: rgb(240, 240, 240);
+    height: 80%;
+    padding: 2% 2% 2% 1%;
+    border-radius: 10px 10px 0 0;
+}
+
+.blog-strap {
+    background-color: white;
+    height: 80%;
+    padding-left: 1%;
+    padding-top: 1%;
+}
+
+.blog {
+    background-color: white;
+    padding: 1%;
+    margin-bottom: 20px;
+    -webkit-box-shadow: 0px 15px 9px -12px rgba(0,0,0,0.43); 
+    box-shadow: 0px 15px 9px -12px rgba(0,0,0,0.43);
+}
+
+
+
+.user-actions {
+    text-align:center;
+    background-color: white;
+    margin-left: 5%;
+    grid-column: 3;
+    grid-row: 2;
+    grid-area: user-actions;
+}
+
+@media(max-width: 1800px) {
+    .dash {
+        grid-template-columns: 1fr 3fr;
+        grid-template-rows: 0.3fr 0.5fr 1fr 1fr;
+        grid-template-areas:
+        "banner profile-strap"
+        "blank blogs"
+        "blank user-actions"
+    
+    }
+
+    .blogs {
+        margin-left: 20%;
+        margin-top: 5%;
+        
+    }
+
+    .user-actions {
+        margin-left: 20%;
+        width: 100%;
+    }
+
+}
+
+@media(max-width:1100px) {
+
+    .profile-strap {
+        opacity: 0;
+    }
+
+    .overlay {
+        display: none;
+    }
+
+    .banner {
+        margin-top: 100px;
+        width: 100%;
+    }
+
+    .blogs {
+        margin-left: 0;
+        margin-top: 40%;
+    }
+
+    .blog-title {
+        margin-bottom: 10%;
+    }
+
+    .user-actions {
+        margin-left: 0;
+    }
+
+    .profile-picture {
+        padding: 0;
+        margin-left: 34%;
+        
+        align-self: center;
+    }
+
+    
+
+    
+    .dash {
+        grid-template-columns: 1fr;
+        grid-template-rows: 0fr 0.2fr 0.3fr 0.4fr;
+        grid-template-areas: 
+        "profile-strap"
+        "banner"
+        "blogs"
+        "user-actions";
+    }
+}
