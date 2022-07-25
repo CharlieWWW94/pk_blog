@@ -7,7 +7,10 @@ from blogs.models import ProtectedBlog
 
 
 def register(request):
-    
+    '''
+    Allows users to sign up by creating username and password.
+    This should be updated with email verification in future.
+    '''
     if request.method == "POST":
         reg_form = UserCreationForm(request.POST)
         if reg_form.is_valid():
@@ -19,7 +22,9 @@ def register(request):
 
 
 def login(request):
-
+    '''
+    Manages user logins by consulting with db - all default Django authentication.
+    '''
     if request.method =="POST":
         username = request.POST['username']
         password = request.POST['password']
@@ -34,7 +39,9 @@ def login(request):
     return render(request, 'registration/login.html', {'login_form': login_form})
 
 def dashboard(request, username):
+    
     if request.user.is_authenticated:
         user_blogs = ProtectedBlog.objects.filter(author = request.user.id)
         print(user_blogs)
-        return render(request, 'dashboard.html')
+        return render(request, 'dashboard.html', {'user_blogs': user_blogs})
+        

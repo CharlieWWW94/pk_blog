@@ -3,20 +3,20 @@
 <header>
     <nav class="navbar">
         
-        <a href="#" class="nav-branding"><img src="{% static 'images/text_logo.png' %}" alt="logo" class="logo"></a>
+        <a href="{% url 'homepage'  %}" class="nav-branding"><img src="{% static 'images/text_logo.png' %}" alt="logo" class="logo"></a>
         <ul class="nav-menu">
       
             <li class="nav-item">
-                <a href="#" class = "nav-link">Home</a>
+                <a href="{% url 'homepage' %}" class = "nav-link">Home</a>
             </li>
             <li class="nav-item">
-                <a href="#" class = "nav-link">Blogs</a>
+                <a href="{% url 'all_blogs' %}" class = "nav-link">Blogs</a>
             </li>
             <li class="nav-item">
-                <a href="#" class = "nav-link"><btn class="login-button">Log in</btn></a>
+                <a href="{% url 'login' %}" class = "nav-link"><btn class="login-button">Log in</btn></a>
             </li>
             <li class="nav-item">
-                <a href="#" class = "nav-link"><btn class="reg-button">Register</btn></a>
+                <a href="{% url 'register' %}" class = "nav-link"><btn class="reg-button">Register</btn></a>
             </li>
         </ul>
         <div class="hamburger">

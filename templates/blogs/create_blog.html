@@ -1,13 +1,8 @@
 {% extends '../base.html' %}
 {% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/new_blog.css' %}">
 <div class="form-container">
-
-<!-- <form method="post">
-    <h1>Create Post:</h1>
-    {% csrf_token %}
-    {{ new_form.as_table }}
-    <button type="submit">Create Blog</button>
-</form> -->
 
     <form method="post">
         {% csrf_token %}

@@ -11,7 +11,7 @@
     margin: 2% 1%;
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
-    grid-template-rows: 0.5fr 1fr 1fr 1fr;
+    grid-template-rows: 0.5fr 3fr 1fr 1fr;
     grid-template-areas:
     "banner profile-strap profile-strap"
     "none blogs user-actions"
@@ -90,9 +90,14 @@
 .blogs {
     border-radius: 20px;
     margin-top: -8%;
-    width: 100%;
+    
     grid-area: blogs;
 
+}
+
+.link-wrapper {
+    text-decoration: none;
+    color: black;
 }
 
 .blog-title {
@@ -154,7 +159,7 @@
 
     .blogs {
         margin-left: 20%;
-        margin-top: 5%;
+        margin-top: -20%;
         
     }
 

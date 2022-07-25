@@ -9,50 +9,29 @@
     <div id="banner" class="banner">
         <span class="profile-picture"></span>
         <div class="banner-contents">
-            <h1>Welcome, Username.</h1>
+            <h1>Welcome, {{request.user.username}}!</h1>
             <br>
             <p class="card-text">This card will be populated with key user information. Such as, number of blogs, number of times successfully decrypted, and perhaps warnings for failed decryption.</p>
         </div>
     </div>
-    <div class="overlay"><h1>@Username</h1></div>
+    <div class="overlay"><h1>@{{request.user.username}}</h1></div>
         <div id="blogs" class="blogs">
             <div class="blog-title"><h1>Your posts:</h1></div>
-            <div class="blog">
+            {% for user_blog in user_blogs %}
+            <a class="link-wrapper" href="{% url '1_blog' id=user_blog.id%}">
+                <div class="blog">
                 <div class="blog-header">
-                    <h2 class="blog-count" >Why Privacy is vital in the age of Data Farming</h2>
-                    <h4 class="blog-strap">How to keep your online identity safe</h4>
-                </div>    
-                <br class="grace">
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non ante et nibh consectetur dapibus at convallis eros. Integer vel odio accumsan nulla varius tincidunt eu a sem. Nunc rhoncus, justo ac finibus viverra, mi quam tincidunt tortor, sit amet venenatis nisl libero ac nisl. Nunc posuere facilisis mi, et ultrices nisi hendrerit et. Aenean ac purus dui. Cras scelerisque lectus vitae nunc egestas, vitae fermentum dolor interdum. Proin mauris felis, blandit non leo ut, gravida placerat lorem. Aenean ac lectus sit amet nibh blandit pharetra ut nec nisi. Fusce aliquam diam nec velit auctor cursus. Maecenas vulputate ligula purus, nec rutrum orci lacinia in. Ut sollicitudin scelerisque eros nec malesuada.
-
-                    Praesent tempor lacus sit amet orci tincidunt, ut aliquam neque scelerisque. 
-                </p>
-            </div>
-            <div class="blog">
-                <div class="blog-header">
-                    <h2 class="blog-count">Blog 1</h2>
-                    <h4 class="blog-strap">Strapline</h4>
+                    <h2 class="blog-count">{{user_blog.title}}</h2>
+                    <h4 class="blog-strap">{{user_blog.strapline}}</h4>
                 </div>
                 <br>
-                <p class="blog-body">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non ante et nibh consectetur dapibus at convallis eros. Integer vel odio accumsan nulla varius tincidunt eu a sem. Nunc rhoncus, justo ac finibus viverra, mi quam tincidunt tortor, sit amet venenatis nisl libero ac nisl. Nunc posuere facilisis mi, et ultrices nisi hendrerit et. Aenean ac purus dui. Cras scelerisque lectus vitae nunc egestas, vitae fermentum dolor interdum. Proin mauris felis, blandit non leo ut, gravida placerat lorem. Aenean ac lectus sit amet nibh blandit pharetra ut nec nisi. Fusce aliquam diam nec velit auctor cursus. Maecenas vulputate ligula purus, nec rutrum orci lacinia in. Ut sollicitudin scelerisque eros nec malesuada.
-
-                    Praesent tempor lacus sit amet orci tincidunt, ut aliquam neque scelerisque. 
+                <p class="blog-text">
+                    {{user_blog.time_created}}
                 </p>
             </div>
-            <div class="blog">
-                <div class="blog-header">
-                    <h2 class="blog-count">Blog 1</h2>
-                    <h4 class="blog-strap">Strapline</h4>
-                </div>
-                <br>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non ante et nibh consectetur dapibus at convallis eros. Integer vel odio accumsan nulla varius tincidunt eu a sem. Nunc rhoncus, justo ac finibus viverra, mi quam tincidunt tortor, sit amet venenatis nisl libero ac nisl. Nunc posuere facilisis mi, et ultrices nisi hendrerit et. Aenean ac purus dui. Cras scelerisque lectus vitae nunc egestas, vitae fermentum dolor interdum. Proin mauris felis, blandit non leo ut, gravida placerat lorem. Aenean ac lectus sit amet nibh blandit pharetra ut nec nisi. Fusce aliquam diam nec velit auctor cursus. Maecenas vulputate ligula purus, nec rutrum orci lacinia in. Ut sollicitudin scelerisque eros nec malesuada.
+            </a>
+            {% endfor %}
 
-                    Praesent tempor lacus sit amet orci tincidunt, ut aliquam neque scelerisque. 
-                </p>
-            </div>
         </div>
         <div class="user-actions">
             <h1>User actions:</h1>
