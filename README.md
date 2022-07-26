@@ -15,7 +15,7 @@ Currently working:
 - Encryption and Decryption module
 - User account creation
 - Blog creation and encryption
-- Log in functionality
+- Log in / log out functionality
 - Responsive Navbar
 - Url creation for new blog posts
 - Presenting user with private key after creating blog
@@ -25,7 +25,6 @@ To do list:
 - Check if user is logged in to allow for blog creation.
 - User dashboard
 - Page for browsing unencrypted, public posts
-- Log out functionality
 
 
 In future I would also like to replace the function based views with class based views.

@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth import authenticate, login as new_login
+from django.contrib.auth import authenticate, login as new_login, logout
 
 from blogs.models import ProtectedBlog
 
@@ -33,15 +33,20 @@ def login(request):
         if user is not None:
             new_login(request, user)
             if request.user.is_authenticated:
-                return render(request, 'success.html', {'user':username})
+                #return render(request, 'success.html', {'user':username})
+                return dashboard(request, username=username)
 
     login_form = AuthenticationForm()
     return render(request, 'registration/login.html', {'login_form': login_form})
-
+    
 def dashboard(request, username):
     
     if request.user.is_authenticated:
         user_blogs = ProtectedBlog.objects.filter(author = request.user.id)
         print(user_blogs)
         return render(request, 'dashboard.html', {'user_blogs': user_blogs})
+
+def log_me_out(request):
+    logout(request)
+    return redirect('homepage')
         

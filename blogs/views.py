@@ -43,7 +43,7 @@ def view_blog(request, id):
         return render(request, 'blogs/blog.html', {'blog': [blog], 'form': form})
         
 
-    #Inital page render for 
+    #Inital page render for blog post
     form = DecryptForm
     blog = ProtectedBlog.objects.filter(id=id)
     return render(request, 'blogs/blog.html', {'blog': blog, 'form': form})

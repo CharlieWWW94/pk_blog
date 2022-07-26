@@ -12,12 +12,21 @@
             <li class="nav-item">
                 <a href="{% url 'all_blogs' %}" class = "nav-link">Blogs</a>
             </li>
+            {% if request.user.is_authenticated %}
+            <li class="nav-item">
+                <a href="{% url 'log_me_out' %}" class = "nav-link"><btn class="login-button">Log Out</btn></a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'dashboard' username=request.user.username %}" class = "nav-link"><btn class="reg-button">Dashboard</btn></a>
+            </li>
+            {% else %}
             <li class="nav-item">
                 <a href="{% url 'login' %}" class = "nav-link"><btn class="login-button">Log in</btn></a>
             </li>
             <li class="nav-item">
                 <a href="{% url 'register' %}" class = "nav-link"><btn class="reg-button">Register</btn></a>
             </li>
+            {% endif %}
         </ul>
         <div class="hamburger">
             <span class="bar"></span>
