@@ -20,21 +20,30 @@ def view_all(request):
 
 
 def view_blog(request, id):
+    '''
+    Functionality to visit a blog's url. Initially presented as encrypted
+    but on post request with correct encryption key will display decrypted post.
+    '''
     #Presents user with a specific, encrypted blog post, decrypts if key offered.
     if request.method == 'POST':
+        #loads given key as bytes object
         user_key = request.POST['user_key']
         user_key_processed = loads(eval(user_key))
+        #Locate blog post in DB
         blog = ProtectedBlog.objects.filter(id=int(request.POST['blog_id']))[0]
-        
+        #Decrypt key
         key_decryption = KeyEncryptor()
         decoded_key = key_decryption.decrypt_key(eval(blog.private_key), user_key_processed)
-
+        #Decrypt blog text
         blog_decryption = BlogEncryptor(given_key=decoded_key)
         blog_content = blog_decryption.decrypt(eval(blog.blog_content))
-        print(blog_content)
+        blog.blog_content = blog_content
+        #return webpage
+        form = DecryptForm
+        return render(request, 'blogs/blog.html', {'blog': [blog], 'form': form})
         
 
-
+    #Inital page render for 
     form = DecryptForm
     blog = ProtectedBlog.objects.filter(id=id)
     return render(request, 'blogs/blog.html', {'blog': blog, 'form': form})
