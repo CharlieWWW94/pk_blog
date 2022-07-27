@@ -8,10 +8,20 @@
         <h1>Browse Public Posts:</h1>
     </div>
     <div class="grid-item grid-item-3"></div>
-    <div class="grid-item grid-item-4"></div>
+    <div class="grid-item grid-item-4">
+        <form class="filters">
+            <h4>Filter results:</h4>
+            <br>
+            <label for="newest">Newest to Oldest</label>
+            <input type="radio" name="filters" id="newest" checked>
+            <br>
+            <label for="oldest">Oldest to Newest</label>
+            <input type="radio" name="filters" id="oldest">
+        </form>
+    </div>
     <div class="grid-item grid-item-5">
     <script>
-        const newResults = [];
+        let newResults = [];
     </script>
         {% for blog in results %}
         <script>
