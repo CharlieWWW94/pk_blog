@@ -16,6 +16,7 @@ def home(request):
 def view_all(request):
     #Displays all blogs, in encrypted state on page
     blogs = ProtectedBlog.objects.all()
+    print(blogs)
     print(f"This is the type of the date: {type(blogs[0].time_created)} and what the object consists of {blogs[0].time_created}")
     return render(request, 'blogs/all_blogs.html', {'results': reversed(blogs)})
 
@@ -47,7 +48,7 @@ def view_blog(request, id):
     #Inital page render for blog post
     form = DecryptForm
     blog = ProtectedBlog.objects.filter(id=id)
-    return render(request, 'blogs/blog.html', {'blog': blog, 'form': form})
+    return render(request, 'blogs/blog.html', {'blog': blog[0], 'form': form})
 
 
 

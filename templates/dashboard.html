@@ -11,7 +11,10 @@
         <div class="banner-contents">
             <h1>Welcome, {{request.user.username}}!</h1>
             <br>
-            <p class="card-text">This card will be populated with key user information. Such as, number of blogs, number of times successfully decrypted, and perhaps warnings for failed decryption.</p>
+            <br>
+            <p class="card-text">Posts published: 2</p>
+            <p class="card-text success">Successful decryptions: 14</p>
+            <p class="card-text fail"> Failed decryptions: 2</p>
         </div>
     </div>
     <div class="overlay"><h1>@{{request.user.username}}</h1></div>

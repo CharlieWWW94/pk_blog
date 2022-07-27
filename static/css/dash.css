@@ -84,7 +84,12 @@
 }
 
 .card-text {
-    padding: 2%;
+    padding: 2% 18%;
+    text-align: left;
+}
+
+.fail {
+    color: red;
 }
 
 .blogs {
@@ -159,7 +164,7 @@
 
     .blogs {
         margin-left: 20%;
-        margin-top: -20%;
+        margin-top: 0;
         
     }
 

@@ -25,7 +25,7 @@
     </script>
         {% for blog in results %}
         <script>
-            newResults.push(["{{blog.title}}", "{{blog.strapline}}", "{{blog.attributed_name}}","{{blog.blog_content}}", "{{blog.time_created}}","{{blog.id}}"])
+            newResults.push(["{{blog.title}}", "{{blog.strapline}}", "{{blog.attributed_name}}", "{{blog.time_created}}","{% url '1_blog' id=blog.id %}"])
         </script>        
         {%endfor%}
     </div>
