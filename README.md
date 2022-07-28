@@ -16,15 +16,19 @@ Currently working:
 - User account creation
 - Blog creation and encryption
 - Log in / log out functionality
+- PostgresQL database
 - Responsive Navbar
 - Url creation for new blog posts
 - Presenting user with private key after creating blog
-- Users can now decrypt blogs they wish to read 
+- Users can now decrypt blogs they wish to read
+- Page for browsing unencrypted, public posts 
 
 To do list:
 - Check if user is logged in to allow for blog creation.
-- User dashboard
-- Page for browsing unencrypted, public posts
+- Complete user dashboard.
+- Add social elements, friend assocations between accounts.
+- Refresh styling of blog browsing page - currently very anemic. 
+
 
 
 In future I would also like to replace the function based views with class based views.
