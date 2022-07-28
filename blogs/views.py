@@ -40,9 +40,11 @@ def view_blog(request, id):
         blog_decryption = BlogEncryptor(given_key=decoded_key)
         blog_content = blog_decryption.decrypt(eval(blog.blog_content))
         blog.blog_content = blog_content
+        print(f"This is the decrypted content: {blog.blog_content}")
+        blog.is_encrypted = False
         #return webpage
         form = DecryptForm
-        return render(request, 'blogs/blog.html', {'blog': [blog], 'form': form})
+        return render(request, 'blogs/blog.html', {'blog': blog, 'form': form})
         
 
     #Inital page render for blog post

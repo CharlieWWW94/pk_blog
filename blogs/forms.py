@@ -11,5 +11,5 @@ class NewBlogForm(forms.Form):
     author = forms.CharField( widget=forms.TextInput(attrs={'placeholder': 'Who are you?'}))
 
 class DecryptForm(forms.Form):
-    user_key = forms.CharField( widget=forms.Textarea(attrs={'class': 'form-content', 'placeholder': ' Add your blog content here...', 'rows': 20, 'cols': 10, }))
-    blog_id = forms.CharField( widget=forms.TextInput(attrs={'placeholder': 'Confirm blog ID:'}))
+    user_key = forms.CharField( widget=forms.TextInput(attrs={'class': 'form-content-1', 'placeholder': 'Add key here...'}))
+    blog_id = forms.CharField( widget=forms.TextInput(attrs={'class': 'form-content-2', 'placeholder': 'Confirm blog ID:'}))
