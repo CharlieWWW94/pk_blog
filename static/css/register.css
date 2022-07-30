@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;600&display=swap');
+
+* {
+    font-family: 'Sora';
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 30% 40% 30%;
+    grid-template-rows: 100%;
+    grid-template-areas:
+    "blank form blank2";
+}
+
+.grid-item-1 {
+    
+    grid-area: blank
+}
+
+.grid-item-2 {
+   
+    display: flex;
+    grid-area: form;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    padding: 4%;
+}
+
+.grid-item-3 {
+    
+    grid-area: blank2;
+}
+
+
+
+.decrypt-form {
+    background-color: rgb(233, 233, 233);
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 5px 15px -2px rgba(0,0,0,0.47); 
+    box-shadow: 0px 5px 15px -2px rgba(0,0,0,0.47);
+    width: 80%;
+}
+
+.form-head {
+    background-color: rgb(247, 242, 242);
+    width: 100%;
+    border-radius: 10px 10px 0 0;
+}
+
+.form-title {
+    background-color: rgb(58, 58, 58);
+    padding: 4% 0;
+    color: white;
+}
+
+.entries {
+    text-align: left;
+}
+
+.form-content-1 {
+    width: 82%;
+    margin-left: 4%;
+    margin-right: 2%;
+    margin-bottom: 2%;
+}
+
+.form-content-2 {
+    width: 82%;
+    margin-left: 4%;
+    margin-right: 2%;
+}
+
+.article-image {
+    max-width: 40%;
+    margin-top: 10%;
+}
+
+.submit-button {
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 0 0 10px 10px;
+    width: 100%;
+    margin-top: 4%;;
+    background-color: rgb(0, 167, 0);
+    font-size: 20px;
+    padding: 2%;
+}
+
+@media(max-width: 1200px) {
+    .grid-container {
+        grid-template-columns: 100%;
+        grid-template-areas: "form";
+    }
+}

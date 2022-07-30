@@ -1,9 +1,29 @@
 {% extends '../base.html' %}
 {% block content %}
-<h2>Sign up</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ reg_form.as_p }}
-  <button type="submit">Sign Up</button>
-</form>
-{% endblock %} 
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/register.css' %}">
+<div class="grid-container">
+  <div class="grid-item grid-item-1"></div>
+  <div class="grid-item grid-item-2">
+    <div class="decrypt-form">
+      <div class="form-head">
+      <img class="article-image" src="{% static 'images/login.svg' %}" alt="">
+    </div>
+      <h2 class="form-title">Register</h2>
+      <br>
+      <form class="entries" method="post">
+          <p>Enter your Username and Password.</p>
+          <br>
+          {% csrf_token %}
+          {{reg_form.as_table}}
+          <button class="submit-button" type="Submit">Submit</button>
+      </form>
+    </div>
+  </div>
+  <div class="grid-item grid-item-3"></div>
+</div>
+{% endblock %}
+
+
+
+
