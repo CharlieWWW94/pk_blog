@@ -59,6 +59,13 @@
 
 }
 
+.top-strap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
 .profile-picture {
     display: flex;
     height: 150px;
@@ -67,7 +74,6 @@
     background: rgb(3,0,36);
     background: linear-gradient(90deg, rgba(3,0,36,1) 0%, rgba(9,59,121,1) 26%, rgba(255,0,217,1) 100%);
     align-self: center;
-    margin-left: 9rem;
     margin-top: -4rem;
     margin-bottom: 2rem;
     border: solid;
@@ -177,6 +183,15 @@
 
 @media(max-width:1100px) {
 
+    .dash {
+        grid-template-columns: 100%;
+        grid-template-rows: 0.3fr 0.5fr 1fr 1fr;
+        grid-template-areas:
+        "banner"
+        "blogs"
+        "user-actions"
+    
+    }
     .profile-strap {
         opacity: 0;
     }
@@ -189,6 +204,7 @@
         margin-top: 100px;
         width: 100%;
     }
+    
 
     .blogs {
         margin-left: 0;
@@ -202,16 +218,6 @@
     .user-actions {
         margin-left: 0;
     }
-
-    .profile-picture {
-        padding: 0;
-        margin-left: 34%;
-        
-        align-self: center;
-    }
-
-    
-
     
     .dash {
         grid-template-columns: 1fr;
