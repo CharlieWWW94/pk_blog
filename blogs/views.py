@@ -9,8 +9,14 @@ from pickle import dumps, loads
 
 def home(request):
     #displays homepage
-    form = DecryptForm
-    return render(request, 'blogs/home.html', {'form': form})
+    if request.method == 'POST':
+        #redirect for completed decryption form.
+        print("posty tonight!")
+        id = request.POST['blog_id']
+        return view_blog(request, id=id)
+    else:
+        form = DecryptForm
+        return render(request, 'blogs/home.html', {'form': form})
 
 
 
@@ -31,6 +37,7 @@ def view_blog(request, id):
     if request.method == 'POST':
         #loads given key as bytes object
         user_key = request.POST['user_key']
+        print(user_key)
         user_key_processed = loads(eval(user_key))
         #Locate blog post in DB
         blog = ProtectedBlog.objects.filter(id=int(request.POST['blog_id']))[0]

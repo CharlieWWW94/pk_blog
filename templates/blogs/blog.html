@@ -18,23 +18,9 @@
     </div>
     <div class="grid-item grid-item-3">grid item 3</div>
     <div class="grid-item grid-item-4">
-        <div class="decrypt-form">
-            <div class="form-head">
-            <img class="article-image" src="{% static 'images/article_img.svg' %}" alt="">
-        </div>
-            <h2 class="form-title">Decrypt Article</h2>
-            <br>
-            <form class="entries" method="post">
-                <p>Please confirm the blog ID and access key.</p>
-                <br>
-                {% csrf_token %}
-                {{form.as_p}}
-                <button class="submit-button" type="Submit">Decrypt</button>
-            </form>
-        </div>
+        {% include 'blogs/decrypt-form.html' %} 
     </div>
     <div class="grid-item grid-item-5">grid item 5</div>
-    
 </div>
 
 {% endblock %}
