@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=PT+Sans:wght@400;700&display=swap');
 
 /* Hero section */
 
@@ -25,7 +26,7 @@
     flex: 1;
     justify-content: center;
     margin: 10% 10% 10% 10%;
-    font-family: 'PT Sans', sans-serif;
+    font-family: PT Sans, sans-serif;
     font-size: xx-large;
     color: rgb(17, 17, 17)
 }
@@ -46,7 +47,6 @@ body {
     flex-direction: row;
     flex-wrap: wrap;
     background-color: azure;
-    padding-bottom: 80%;
     font-family: 'PT Sans', sans-serif;
     font-weight: 400;
     font-size: 20px;
@@ -67,6 +67,43 @@ body {
     border-radius: 25%;
 }
 
+/* Styling for decrypt form container */
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 60% 40%;
+    grid-template-areas: 
+    "grid-area-1 grid-area-2";
+    margin: 2% 0%;
+    
+}
+
+.grid-area-1 {
+    grid-area: grid-area-1;
+    padding: 5%;
+    margin-left: 14%;
+    margin-top: 14%;
+    font-family:  PT Sans, sans-serif;
+
+    
+}
+
+.decrypt-tagline {
+    font-family:  PT Sans, sans-serif;
+    font-size: 60px;
+}
+
+.form-info {
+    font-size: 30px;
+}
+
+
+.grid-area-2 {
+    justify-content: center;
+    text-align: center;
+    grid-area: grid-area-2;
+    padding: 5% 8%;
+}
 /* Changes for mobile compatibility */
 
 @media(max-width:1020px) {
@@ -90,6 +127,18 @@ body {
         order: 2;
         font-size: xx-large;
         margin: auto auto auto auto auto;
+    }
+
+    .grid-container {
+        grid-template-columns: 100%;
+        grid-template-areas: 
+        "grid-area-1"
+        "grid-area-2";
+    }
+
+    .grid-area-1 {
+        text-align: center;
+        margin-left: 0;
     }
 }
 

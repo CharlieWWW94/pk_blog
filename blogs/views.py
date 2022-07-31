@@ -9,7 +9,8 @@ from pickle import dumps, loads
 
 def home(request):
     #displays homepage
-    return render(request, 'blogs/home.html')
+    form = DecryptForm
+    return render(request, 'blogs/home.html', {'form': form})
 
 
 
