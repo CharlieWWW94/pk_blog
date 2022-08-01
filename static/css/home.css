@@ -33,7 +33,6 @@
 
 .accent {
     color: rgb(216, 0, 0);
-    padding-top: 1rem;
 }
 
 /* Info section */
@@ -91,10 +90,25 @@ body {
 .decrypt-tagline {
     font-family:  PT Sans, sans-serif;
     font-size: 60px;
+    
 }
 
 .form-info {
     font-size: 30px;
+    
+}
+
+.from-left {
+    transform: translateX(-90%);
+    transition: transform 600ms ease-in;
+    transition-delay: 50ms;
+    
+}
+
+
+.from-left.appear {
+    transform: translateX(0);
+    
 }
 
 
