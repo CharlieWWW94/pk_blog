@@ -20,5 +20,9 @@ class NewBlogForm2(forms.Form):
     author = forms.CharField( widget=forms.TextInput(attrs={'placeholder': 'Who are you?'}))
 
 class DecryptForm(forms.Form):
-    user_key = forms.CharField( widget=forms.TextInput(attrs={'class': 'form-content-1', 'placeholder': 'Add key here...'}))
+    user_key = forms.CharField( widget=forms.TextInput(attrs={'class': 'form-content-1', 'placeholder': 'Add decryption key here...'}))
+    blog_id = forms.CharField( widget=forms.TextInput(attrs={'class': 'form-content-2', 'placeholder': 'Confirm blog ID:'}))
+
+class VerifyForm(forms.Form):
+    public_key = forms.CharField( widget=forms.TextInput(attrs={'class': 'form-content-1', 'placeholder': 'Add verification key here...'}))
     blog_id = forms.CharField( widget=forms.TextInput(attrs={'class': 'form-content-2', 'placeholder': 'Confirm blog ID:'}))
