@@ -68,12 +68,12 @@ class RSASign:
     def get_pub_key(self):
         return self.pubkey
 
-    def sign_key(self, given_key):
+    def sign_post(self, given_post):
         self.signature = rsa.sign(
-            message=given_key, priv_key=self.privkey, hash_method='SHA-256')
+            message=given_post.encode('utf8'), priv_key=self.privkey, hash_method='SHA-256')
         return self.signature
 
-    def verify_key(self, signed_message, given_signature):
+    def verify_post(self, signed_message, given_signature):
         try:
             verified = rsa.verify(message=signed_message.encode('utf8'),
                                   pub_key=self.pubkey, signature=given_signature)
