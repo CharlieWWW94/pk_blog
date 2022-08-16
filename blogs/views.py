@@ -1,8 +1,8 @@
 from distutils.log import error
 from django.shortcuts import render
-from .models import ProtectedBlog
+from .models import ProtectedBlog, ProtectedBlog2
 from .forms import NewBlogForm2, DecryptForm
-from enkrypt import BlogEncryptor, KeyEncryptor
+from enkrypt import BlogEncryptor, KeyEncryptor, RSASign
 from .models import ProtectedBlog
 from pickle import dumps, loads
 # Create your views here.
@@ -115,29 +115,28 @@ def create_blog2(request):
 
     if request.method == 'POST':
         # Adds data from form to a new blog object for the database.
-        new_blog = ProtectedBlog()
+        new_blog = ProtectedBlog2()
         new_blog.title = request.POST['title']
         new_blog.strapline = request.POST['strapline']
         new_blog.attributed_name = request.POST['author']
-        new_blog.author = request.user.id
+        new_blog.author = request.user.username
 
         content = request.POST['blog_content']
         new_blog.blog_content = content
 
-        if request.POST.get('is_encrypted') != None:
-            # Encrypts the blog with AES, and then encrypts the key with RSA.
-            # This means only users with the RSA Private Key can decrypt the content
+        if request.POST.get('is_verified'):
+            # Creates RSA signature from blog content and saves to db. Creates public key for verification later.
+            new_blog.is_signed = True
+            rsa_signer = RSASign()
+            new_blog.rsa_signature = rsa_signer.sign_post(given_post=new_blog.blog_content)
+            public_key = rsa_signer.get_pub_key()
 
+        if request.POST.get('is_encrypted'):
+            # Encrypts user's blog post and adds encrypted version to ProtectedBlog object
             new_blog.is_encrypted = True
             blog_encryption = BlogEncryptor()
             new_blog.blog_content = blog_encryption.encrypt(content)
-            key_encryption = KeyEncryptor()
-            access_key = key_encryption.gen_pk_keys()
-            # Access key as bytes - needed later for decryption.
-            bytes_key = str(dumps(access_key))
-            encrypted_key = key_encryption.encrypt_key(
-                blog_encryption.get_key())
-            new_blog.private_key = encrypted_key
+            aes_Key = blog_encryption.get_key()
 
         else:
             new_blog.is_encrypted = False
@@ -145,7 +144,7 @@ def create_blog2(request):
 
         new_blog.save()
 
-        return render(request, 'blogs/blog_created.html', {'key': bytes_key, 'url_id': new_blog.id})
+        return render(request, 'blogs/blog_created.html', {'key': aes_Key, 'url_id': new_blog.id, 'public_key': public_key})
 
     new_form = NewBlogForm2()
     return render(request, 'blogs/create_blog.html', {'new_form': new_form})
