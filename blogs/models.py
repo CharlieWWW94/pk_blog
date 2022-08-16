@@ -11,3 +11,16 @@ class ProtectedBlog(models.Model):
     blog_content = models.TextField()
     author = models.CharField(max_length=100, blank=True)
     attributed_name = models.CharField(max_length=50, blank=True)
+
+
+class ProtectedBlog2(models.Model):
+    time_created = models.DateTimeField(auto_now_add=True)
+    title = models.CharField(max_length=200)
+    strapline = models.TextField(max_length=500, blank=True)
+    is_encrypted = models.BooleanField()
+    is_signed = models.BooleanField()
+    rsa_signature = models.TextField(max_length=200, blank=True)
+    #encryption_key = models.TextField(max_length=200, blank=True) #Should be hashed
+    blog_content = models.TextField()
+    author = models.CharField(max_length=100, blank=True)
+    attributed_name = models.CharField(max_length=50, blank=True)

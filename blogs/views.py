@@ -59,6 +59,7 @@ def view_blog(request, id):
     # Inital page render for blog post
     form = DecryptForm
     blog = ProtectedBlog.objects.filter(id=id)
+    print(f"HERE IS THE BLOG YOU ARE LOOKING FOR: {blog[0].is_encrypted}")
     return render(request, 'blogs/blog.html', {'blog': blog[0], 'form': form})
 
 
