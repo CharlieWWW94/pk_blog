@@ -29,38 +29,38 @@ def view_all(request):
     return render(request, 'blogs/all_blogs.html', {'results': reversed(blogs)})
 
 
-def view_blog(request, id):
-    '''
-    Functionality to visit a blog's url. Initially presented as encrypted
-    but on post request with correct encryption key will display decrypted post.
-    '''
-    # Presents user with a specific, encrypted blog post, decrypts if key offered.
-    if request.method == 'POST':
-        # loads given key as bytes object
-        user_key = request.POST['user_key']
-        print(user_key)
-        user_key_processed = loads(eval(user_key))
-        # Locate blog post in DB
-        blog = ProtectedBlog.objects.filter(id=int(request.POST['blog_id']))[0]
-        # Decrypt key
-        key_decryption = KeyEncryptor()
-        decoded_key = key_decryption.decrypt_key(
-            eval(blog.private_key), user_key_processed)
-        # Decrypt blog text
-        blog_decryption = BlogEncryptor(given_key=decoded_key)
-        blog_content = blog_decryption.decrypt(eval(blog.blog_content))
-        blog.blog_content = blog_content
-        print(f"This is the decrypted content: {blog.blog_content}")
-        blog.is_encrypted = False
-        # return webpage
-        form = DecryptForm
-        return render(request, 'blogs/blog.html', {'blog': blog, 'form': form})
+# def view_blog(request, id):
+#     '''
+#     Functionality to visit a blog's url. Initially presented as encrypted
+#     but on post request with correct encryption key will display decrypted post.
+#     '''
+#     # Presents user with a specific, encrypted blog post, decrypts if key offered.
+#     if request.method == 'POST':
+#         # loads given key as bytes object
+#         user_key = request.POST['user_key']
+#         print(user_key)
+#         user_key_processed = loads(eval(user_key))
+#         # Locate blog post in DB
+#         blog = ProtectedBlog.objects.filter(id=int(request.POST['blog_id']))[0]
+#         # Decrypt key
+#         key_decryption = KeyEncryptor()
+#         decoded_key = key_decryption.decrypt_key(
+#             eval(blog.private_key), user_key_processed)
+#         # Decrypt blog text
+#         blog_decryption = BlogEncryptor(given_key=decoded_key)
+#         blog_content = blog_decryption.decrypt(eval(blog.blog_content))
+#         blog.blog_content = blog_content
+#         print(f"This is the decrypted content: {blog.blog_content}")
+#         blog.is_encrypted = False
+#         # return webpage
+#         form = DecryptForm
+#         return render(request, 'blogs/blog.html', {'blog': blog, 'form': form})
 
-    # Inital page render for blog post
-    form = DecryptForm
-    blog = ProtectedBlog.objects.filter(id=id)
-    print(f"HERE IS THE BLOG YOU ARE LOOKING FOR: {blog[0].is_encrypted}")
-    return render(request, 'blogs/blog.html', {'blog': blog[0], 'form': form})
+#     # Inital page render for blog post
+#     form = DecryptForm
+#     blog = ProtectedBlog.objects.filter(id=id)
+#     print(f"HERE IS THE BLOG YOU ARE LOOKING FOR: {blog[0].is_encrypted}")
+#     return render(request, 'blogs/blog.html', {'blog': blog[0], 'form': form})
 
 
 # def create_blog(request):
@@ -106,6 +106,45 @@ def view_blog(request, id):
 #     new_form = NewBlogForm()
 #     return render(request, 'blogs/create_blog.html', {'new_form': new_form})
 
+def view_all2(request):
+    # Displays all blogs, in encrypted state on page
+    blogs = ProtectedBlog2.objects.all()
+    print(blogs)
+    print(
+        f"This is the type of the date: {type(blogs[0].time_created)} and what the object consists of {blogs[0].time_created}")
+    return render(request, 'blogs/all_blogs.html', {'results': reversed(blogs)})
+
+
+def view_blog2(request, id):
+    '''
+    Functionality to visit a blog's url. Initially presented as encrypted
+    but on post request with correct encryption key will display decrypted post.
+    '''
+
+    if request.method == 'POST':
+    
+        user_key = request.POST['user_key']
+        user_key_processed = eval(user_key)
+
+        # Locate blog post in DB
+        blog = ProtectedBlog2.objects.filter(
+            id=int(request.POST['blog_id']))[0]
+
+        # Decrypt blog text
+        blog_decryption = BlogEncryptor(user_key_processed)
+        blog_content = blog_decryption.decrypt(eval(blog.blog_content))
+        blog.blog_content = blog_content
+        blog.is_encrypted = False
+
+        # return webpage
+        form = DecryptForm
+        return render(request, 'blogs/blog.html', {'blog': blog, 'form': form})
+
+    # Inital page render for blog post
+    form = DecryptForm
+    blog = ProtectedBlog2.objects.filter(id=id)
+    return render(request, 'blogs/blog.html', {'blog': blog[0], 'form': form})
+
 
 def create_blog2(request):
     '''
@@ -128,7 +167,8 @@ def create_blog2(request):
             # Creates RSA signature from blog content and saves to db. Creates public key for verification later.
             new_blog.is_signed = True
             rsa_signer = RSASign()
-            new_blog.rsa_signature = rsa_signer.sign_post(given_post=new_blog.blog_content)
+            new_blog.rsa_signature = rsa_signer.sign_post(
+                given_post=new_blog.blog_content)
             public_key = rsa_signer.get_pub_key()
 
         if request.POST.get('is_encrypted'):
