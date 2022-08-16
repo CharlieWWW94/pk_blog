@@ -1,0 +1,21 @@
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/decrypt-form.css' %}">
+<div class="decrypt-form">
+    <div class="form-head">
+    <img class="article-image" src="{% static 'images/article_img.svg' %}" alt="">
+</div>
+    <h2 class="form-title">Verify Article</h2>
+    <br>
+    <form class="entries" method="post">
+        <p>Verify the author of this post by entering the public key.</p>
+        <br>
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="hidden" name="content" value="{{content}}"/>
+        <button class="submit-button" type="Submit">Verify</button>
+    </form>
+</div>
+</div>
+{% endblock %}

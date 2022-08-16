@@ -1,5 +1,6 @@
 {% extends '../base.html' %}
 {% block content %}
-<p>Here is the key to your post, share this with your readers: {{key}}</p>
+<p>Here is the decryption key for your post, share this with your readers (We do not store this, so take care of it!): {{key}}</p>
+<p>Here is the verification key for your post. (This ensures readers that YOU wrote the post. We don't store this): {{public_key}}</p>
 <p>Here is the URL for your post: {{url_id}}</p>
 {% endblock %}

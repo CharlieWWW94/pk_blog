@@ -23,8 +23,13 @@
             </li>
             <li class="form-entry">
                 {{new_form.is_encrypted.errors}}
-                <label for="{{ new_form.is_encrypted.id_for_label }}">Encryption:</label>
+                <label for="{{ new_form.is_encrypted.id_for_label }}">Add AES Encryption:</label>
                 {{new_form.is_encrypted}}
+            </li>
+            <li class="form-entry">
+                {{new_form.is_verified.errors}}
+                <label for="{{ new_form.is_verified.id_for_label }}">Add RSA signature:</label>
+                {{new_form.is_verified}}
             </li>
             <li class="form-entry">
                 {{new_form.blog_content.errors}}
