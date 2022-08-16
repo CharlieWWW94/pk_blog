@@ -1,9 +1,12 @@
 from distutils.log import error
+from json import load
+import re
 from django.shortcuts import render
 from .models import ProtectedBlog, ProtectedBlog2
-from .forms import NewBlogForm2, DecryptForm
+from .forms import NewBlogForm2, DecryptForm, VerifyForm
 from enkrypt import BlogEncryptor, KeyEncryptor, RSASign
 from .models import ProtectedBlog
+import pickle
 from pickle import dumps, loads
 # Create your views here.
 
@@ -14,7 +17,7 @@ def home(request):
         # redirect for completed decryption form.
         print("posty tonight!")
         id = request.POST['blog_id']
-        return view_blog(request, id=id)
+        return view_blog2(request, id=id)
     else:
         form = DecryptForm
         return render(request, 'blogs/home.html', {'form': form})
@@ -122,23 +125,46 @@ def view_blog2(request, id):
     '''
 
     if request.method == 'POST':
-    
-        user_key = request.POST['user_key']
-        user_key_processed = eval(user_key)
 
-        # Locate blog post in DB
-        blog = ProtectedBlog2.objects.filter(
-            id=int(request.POST['blog_id']))[0]
+        print(request.POST)
 
-        # Decrypt blog text
-        blog_decryption = BlogEncryptor(user_key_processed)
-        blog_content = blog_decryption.decrypt(eval(blog.blog_content))
-        blog.blog_content = blog_content
-        blog.is_encrypted = False
+        if request.POST.get('user_key'):
 
-        # return webpage
-        form = DecryptForm
-        return render(request, 'blogs/blog.html', {'blog': blog, 'form': form})
+            user_key = request.POST['user_key']
+            user_key_processed = eval(user_key)
+
+            # Locate blog post in DB
+            blog = ProtectedBlog2.objects.filter(
+                id=int(request.POST['blog_id']))[0]
+
+            # Decrypt blog text
+            blog_decryption = BlogEncryptor(user_key_processed)
+            blog_content = blog_decryption.decrypt(eval(blog.blog_content))
+            blog.blog_content = blog_content
+            blog.is_encrypted = False
+
+            # return webpage
+            form = VerifyForm
+            return render(request, 'blogs/blog.html', {'blog': blog, 'form': form, 'verification': 'Not yet verified'})
+        
+        elif request.POST.get('public_key'):
+
+            blog = ProtectedBlog2.objects.filter(
+                id=int(request.POST['blog_id']))[0]
+
+            blog_content = request.POST['content']        
+            public_key = request.POST['public_key']
+            verifier = RSASign(public_key=public_key)
+            verification_status = verifier.verify_post(signed_message=blog_content, given_signature= blog.rsa_signature)
+            
+            blog.is_encrypted = False
+            blog.blog_content = blog_content
+
+            return render(request, 'blogs/blog.html', {'blog': blog, 'form': None, 'verification': verification_status})
+
+
+
+
 
     # Inital page render for blog post
     form = DecryptForm
@@ -170,6 +196,7 @@ def create_blog2(request):
             new_blog.rsa_signature = rsa_signer.sign_post(
                 given_post=new_blog.blog_content)
             public_key = rsa_signer.get_pub_key()
+
 
         if request.POST.get('is_encrypted'):
             # Encrypts user's blog post and adds encrypted version to ProtectedBlog object

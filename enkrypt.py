@@ -1,4 +1,5 @@
 import rsa
+import pickle
 from cryptography.fernet import Fernet
 
 
@@ -58,15 +59,17 @@ class RSASign:
     Provides functionality to sign and verify message with private or public RSA Key, respectively.
     '''
 
+    
+
     def __init__(self, public_key=None, private_key=None):
 
         if public_key or private_key:
-            (self.pubkey, self.privkey) = [public_key, private_key]
+            (self.pubkey, self.privkey) = [pickle.loads(eval(public_key)), private_key]
         else:
             (self.pubkey, self.privkey) = rsa.newkeys(2048, poolsize=4)
 
     def get_pub_key(self):
-        return self.pubkey
+        return str(pickle.dumps(self.pubkey))
 
     def sign_post(self, given_post):
         self.signature = rsa.sign(
@@ -76,7 +79,7 @@ class RSASign:
     def verify_post(self, signed_message, given_signature):
         try:
             verified = rsa.verify(message=signed_message.encode('utf8'),
-                                  pub_key=self.pubkey, signature=given_signature)
+                                  pub_key=self.pubkey, signature=eval(given_signature))
 
             return verified
         except AssertionError:
