@@ -12,10 +12,9 @@ from pickle import dumps, loads
 
 
 def home(request):
-    # displays homepage
+    # displays homepage and allows for blog lookups upon posting
     if request.method == 'POST':
         # redirect for completed decryption form.
-        print("posty tonight!")
         id = request.POST['blog_id']
         return view_blog(request, id=id)
     else:
@@ -26,9 +25,6 @@ def home(request):
 def view_all(request):
     # Displays all blogs, in encrypted state on page
     blogs = ProtectedBlog2.objects.all()
-    print(blogs)
-    print(
-        f"This is the type of the date: {type(blogs[0].time_created)} and what the object consists of {blogs[0].time_created}")
     return render(request, 'blogs/all_blogs.html', {'results': reversed(blogs)})
 
 
@@ -42,38 +38,11 @@ def view_blog(request, id):
 
         if request.POST.get('user_key'):
 
-            user_key = request.POST['user_key']
-            user_key_processed = eval(user_key)
-
-            # Locate blog post in DB
-            blog = ProtectedBlog2.objects.filter(
-                id=int(request.POST['blog_id']))[0]
-
-            # Decrypt blog text
-            blog_decryption = BlogEncryptor(user_key_processed)
-            blog_content = blog_decryption.decrypt(eval(blog.blog_content))
-            blog.blog_content = blog_content
-            blog.is_encrypted = False
-
-            # return webpage
-            form = VerifyForm
-            return render(request, 'blogs/blog.html', {'blog': blog, 'form': form, 'verification': 'Not yet verified'})
+            return decrypt_helper(request)
 
         elif request.POST.get('public_key'):
 
-            blog = ProtectedBlog2.objects.filter(
-                id=int(request.POST['blog_id']))[0]
-
-            blog_content = request.POST['content']
-            public_key = request.POST['public_key']
-            verifier = RSASign(public_key=public_key)
-            verification_status = verifier.verify_post(
-                signed_message=blog_content, given_signature=blog.rsa_signature)
-
-            blog.is_encrypted = False
-            blog.blog_content = blog_content
-
-            return render(request, 'blogs/blog.html', {'blog': blog, 'form': None, 'verification': verification_status})
+            return verify_helper(request)
 
     # Inital page render for blog post
     form = DecryptForm
@@ -123,3 +92,52 @@ def create_blog(request):
 
     new_form = NewBlogForm2()
     return render(request, 'blogs/create_blog.html', {'new_form': new_form})
+
+
+### HELPER FUNCTIONS _ TO BE MOVED TO OWN FILE UPON REFACTORING ###
+
+
+def decrypt_helper(request):
+
+    '''A helper function that allows for blog post decryption - implemented to avoid excessively large view functions'''
+
+    user_key = request.POST['user_key']
+    user_key_processed = eval(user_key)
+
+    # Locate blog post in DB
+    blog = ProtectedBlog2.objects.filter(
+        id=int(request.POST['blog_id']))[0]
+
+    # Decrypt blog text
+    blog_decryption = BlogEncryptor(user_key_processed)
+    blog_content = blog_decryption.decrypt(eval(blog.blog_content))
+    blog.blog_content = blog_content
+    blog.is_encrypted = False
+
+    # return webpage
+    form = VerifyForm
+    return render(request, 'blogs/blog.html', {'blog': blog, 'form': form, 'verification': 'Not yet verified'})
+
+
+def verify_helper(request):
+
+    '''A helper function that allows for blog post decryption - implemented to avoid excessively large view functions'''
+
+    # Locate blog post
+    blog = ProtectedBlog2.objects.filter(
+        id=int(request.POST['blog_id']))[0]
+
+    blog_content = request.POST['content']
+    public_key = request.POST['public_key']
+
+    # Verify blog post
+    verifier = RSASign(public_key=public_key)
+
+    verification_status = verifier.verify_post(
+        signed_message=blog_content, given_signature=blog.rsa_signature)
+
+    blog.is_encrypted = False
+    blog.blog_content = blog_content
+
+    # Return webpage
+    return render(request, 'blogs/blog.html', {'blog': blog, 'form': None, 'verification': verification_status})

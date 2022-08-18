@@ -48,7 +48,7 @@
 }
 
 .grid-item-3 {
-    background-color: red;
+    /*background-color: red;*/
     grid-area: col1;
 }
 
@@ -112,7 +112,7 @@
 }
 
 .grid-item-5 {
-    background-color: peru;
+    
     grid-area: col2;
 }
 
